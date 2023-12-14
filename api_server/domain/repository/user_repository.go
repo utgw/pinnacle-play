@@ -5,5 +5,5 @@ import (
 )
 
 type UserRepository interface {
-	Save(ctx context.Context, name string) error
+	Save(ctx context.Context, name string, groupId int) error
 }
