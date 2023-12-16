@@ -2,12 +2,14 @@ package usecase
 
 import (
 	"context"
+	"pinnacle-play/domain/model"
 	"pinnacle-play/domain/repository"
 	"pinnacle-play/usecase/input"
 )
 
 type Group interface {
-	CreateGroup(ctx context.Context, ipt input.PostGroupInput) error
+	CreateGroup(ctx context.Context, ipt input.PostGroupInput) (*model.Group, error)
+	ValidatePost(ctx context.Context, ipt input.PostGroupInput) error
 }
 
 type GroupUsecase struct {
@@ -26,19 +28,19 @@ func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, 
 	}
 }
 
-func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput) error {
+func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput) (*model.Group, error) {
 	tx := u.txRepo
 	// トランザクションを開始
 	ctx, err := tx.Begin(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// groupを保存
 	group, err := u.groupRepo.Save(ctx, in.GroupName)
 	if err != nil {
 		tx.Rollback(ctx)
-		return err
+		return nil, err
 	}
 
 	// 各userとquestionにgroupのIDを設定し、保存
@@ -46,7 +48,7 @@ func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput)
 	for _, userName := range userNames {
 		if err := u.userRepo.Save(ctx, userName, group.ID()); err != nil {
 			tx.Rollback(ctx)
-			return err
+			return nil, err
 		}
 	}
 
@@ -54,14 +56,14 @@ func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput)
 	for _, questionContent := range questionContents {
 		if err := u.questionRepo.Save(ctx, questionContent, group.ID()); err != nil {
 			tx.Rollback(ctx)
-			return err
+			return nil, err
 		}
 	}
 
 	// トランザクションをコミット
 	if _,err := tx.Commit(ctx); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return group, nil
 }
