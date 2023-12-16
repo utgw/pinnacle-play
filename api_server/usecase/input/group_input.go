@@ -1,6 +1,6 @@
 package input
 
-type PostGroupWithUsersAndQuestionsInput struct {
+type PostGroupInput struct {
 	GroupName  string
 	UserNames []string
 	QuestionContents []string

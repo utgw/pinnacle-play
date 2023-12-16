@@ -7,7 +7,7 @@ import (
 )
 
 type Group interface {
-	CreateGroup(ctx context.Context, ipt input.PostGroupWithUsersAndQuestionsInput) error
+	CreateGroup(ctx context.Context, ipt input.PostGroupInput) error
 }
 
 type GroupUsecase struct {
@@ -26,7 +26,7 @@ func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, 
 	}
 }
 
-func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupWithUsersAndQuestionsInput) error {
+func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput) error {
 	tx := u.txRepo
 	// トランザクションを開始
 	ctx, err := tx.Begin(ctx)
