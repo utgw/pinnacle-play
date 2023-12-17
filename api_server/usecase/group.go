@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"pinnacle-play/domain/model"
 	"pinnacle-play/domain/repository"
 	"pinnacle-play/usecase/input"
@@ -32,23 +32,23 @@ func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, 
 func (g groupUsecase) ValidatePost(in input.PostGroupInput) error {
 	// GroupNameのバリデーション
 	if in.GroupName == "" {
-		return fmt.Errorf("groupName parameter is invalid. %s", in.GroupName)
+		return errors.New("GroupName parameter is invalid")
 	}
 
 	// UserNamesのバリデーション
 	if len(in.UserNames) == 0 {
-		return fmt.Errorf("UserNames parameter is invalid. %s", in.UserNames)
+		return errors.New("UserNames parameter is invalid")
 	}
 	for _, userName := range in.UserNames {
 		if userName == "" {
-			return fmt.Errorf("UserNames parameter is invalid. %s", in.UserNames)
+			return errors.New("UserNames parameter is invalid")
 		}
 	}
 
 	// QuestionContentsのバリデーション
 	for _, questionContent := range in.QuestionContents {
 		if questionContent == "" {
-			return fmt.Errorf("QuestionContents parameter is invalid. %s", in.QuestionContents)
+			return errors.New("QuestionContents parameter is invalid")
 		}
 	}
 
