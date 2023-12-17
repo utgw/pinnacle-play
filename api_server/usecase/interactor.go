@@ -15,12 +15,12 @@ func NewInteractor(
 
 // Interactor usecase interactor
 type Interactor struct {
-	pre  Presenter
+	pre   Presenter
 	group Group
 }
 
-// PostMemoAndTags save memo and tags
-func (i Interactor) PostMemoAndTags(ctx context.Context, in input.PostGroupInput) {
+// PostGroup save memo and tags
+func (i Interactor) PostGroup(ctx context.Context, in input.PostGroupInput) {
 	err := i.group.ValidatePost(ctx, in)
 	if err != nil {
 		i.pre.ViewError(ctx, err)
