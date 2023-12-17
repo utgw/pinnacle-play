@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"fmt"
 	"pinnacle-play/domain/model"
 	"pinnacle-play/domain/repository"
 	"pinnacle-play/usecase/input"
@@ -12,15 +13,15 @@ type Group interface {
 	ValidatePost(ctx context.Context, ipt input.PostGroupInput) error
 }
 
-type GroupUsecase struct {
+type groupUsecase struct {
 	userRepo     repository.UserRepository
 	groupRepo    repository.GroupRepository
 	questionRepo repository.QuestionRepository
 	txRepo       repository.TransactionRepository
 }
 
-func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, q repository.QuestionRepository,t repository.TransactionRepository) *GroupUsecase {
-	return &GroupUsecase{
+func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, q repository.QuestionRepository, t repository.TransactionRepository) *groupUsecase {
+	return &groupUsecase{
 		userRepo:     u,
 		groupRepo:    g,
 		questionRepo: q,
@@ -28,7 +29,33 @@ func NewGroupUsecase(u repository.UserRepository, g repository.GroupRepository, 
 	}
 }
 
-func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput) (*model.Group, error) {
+func (g groupUsecase) ValidatePost(in input.PostGroupInput) error {
+	// GroupNameのバリデーション
+	if in.GroupName == "" {
+		return fmt.Errorf("groupName parameter is invalid. %s", in.GroupName)
+	}
+
+	// UserNamesのバリデーション
+	if len(in.UserNames) == 0 {
+		return fmt.Errorf("UserNames parameter is invalid. %s", in.UserNames)
+	}
+	for _, userName := range in.UserNames {
+		if userName == "" {
+			return fmt.Errorf("UserNames parameter is invalid. %s", in.UserNames)
+		}
+	}
+
+	// QuestionContentsのバリデーション
+	for _, questionContent := range in.QuestionContents {
+		if questionContent == "" {
+			return fmt.Errorf("QuestionContents parameter is invalid. %s", in.QuestionContents)
+		}
+	}
+
+	return nil
+}
+
+func (u *groupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput) (*model.Group, error) {
 	tx := u.txRepo
 	// トランザクションを開始
 	ctx, err := tx.Begin(ctx)
@@ -61,7 +88,7 @@ func (u *GroupUsecase) CreateGroup(ctx context.Context, in input.PostGroupInput)
 	}
 
 	// トランザクションをコミット
-	if _,err := tx.Commit(ctx); err != nil {
+	if _, err := tx.Commit(ctx); err != nil {
 		return nil, err
 	}
 
