@@ -1,8 +1,9 @@
 package input
 
-type PostGroupInput struct {
-	GroupName  string
-	UserNames []string
-	QuestionContents []string
-}
+import "pinnacle-play/domain/model"
 
+type PostGroupInput struct {
+	GroupName        model.GroupName
+	UserNames        []model.UserName
+	QuestionContents []model.QuestionContent
+}
