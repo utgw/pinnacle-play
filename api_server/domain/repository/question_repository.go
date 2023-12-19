@@ -6,5 +6,5 @@ import (
 )
 
 type QuestionRepository interface {
-	Save(ctx context.Context, content string, groupId model.GroupID) error
+	Save(ctx context.Context, content model.QuestionContent, groupId model.GroupID) (*model.Question, error)
 }

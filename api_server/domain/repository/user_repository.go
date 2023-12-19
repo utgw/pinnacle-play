@@ -6,5 +6,5 @@ import (
 )
 
 type UserRepository interface {
-	Save(ctx context.Context, name string, groupId model.GroupID) error
+	Save(ctx context.Context, name string, groupId model.GroupID) (*model.User, error)
 }
