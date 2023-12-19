@@ -6,5 +6,5 @@ import (
 )
 
 type GroupRepository interface {
-	Save(ctx context.Context, name string) (*model.Group, error)
+	Save(ctx context.Context, name model.GroupName) (*model.Group, error)
 }
