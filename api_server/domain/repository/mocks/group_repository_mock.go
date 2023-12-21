@@ -40,7 +40,7 @@ func (m *MockGroupRepository) EXPECT() *MockGroupRepositoryMockRecorder {
 }
 
 // Save mocks base method.
-func (m *MockGroupRepository) Save(ctx context.Context, name string) (*model.Group, error) {
+func (m *MockGroupRepository) Save(ctx context.Context, name model.GroupName) (*model.Group, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Save", ctx, name)
 	ret0, _ := ret[0].(*model.Group)

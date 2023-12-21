@@ -40,11 +40,12 @@ func (m *MockQuestionRepository) EXPECT() *MockQuestionRepositoryMockRecorder {
 }
 
 // Save mocks base method.
-func (m *MockQuestionRepository) Save(ctx context.Context, content string, groupId model.GroupID) error {
+func (m *MockQuestionRepository) Save(ctx context.Context, content model.QuestionContent, groupId model.GroupID) (*model.Question, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Save", ctx, content, groupId)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*model.Question)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // Save indicates an expected call of Save.

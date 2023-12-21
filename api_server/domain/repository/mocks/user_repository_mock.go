@@ -12,6 +12,7 @@ import (
 	context "context"
 	model "pinnacle-play/domain/model"
 	reflect "reflect"
+
 	"github.com/golang/mock/gomock"
 )
 
@@ -39,11 +40,12 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // Save mocks base method.
-func (m *MockUserRepository) Save(ctx context.Context, name string, groupId model.GroupID) error {
+func (m *MockUserRepository) Save(ctx context.Context, name model.UserName, groupId model.GroupID) (*model.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Save", ctx, name, groupId)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // Save indicates an expected call of Save.
