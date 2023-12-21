@@ -1,0 +1,40 @@
+{
+	"mocks": {
+		"api_server/domain/repository/mocks/group_repository_mock.go": {
+			"checksum": "Dl+SRYAba6D1PK7GzAEnlA==",
+			"source_checksum": "tw59LjOmPrfFLJmkWI/SxQ==",
+			"mode": "SOURCE_MODE",
+			"source_mode_runner": {
+				"source": "api_server/domain/repository/group_repository.go",
+				"destination": "api_server/domain/repository/mocks/group_repository_mock.go"
+			}
+		},
+		"api_server/domain/repository/mocks/question_repository_mock.go": {
+			"checksum": "4f0ftvIL8bE5OrnamXtF5g==",
+			"source_checksum": "QlVxhcD8lQvMO7vzfRCKHQ==",
+			"mode": "SOURCE_MODE",
+			"source_mode_runner": {
+				"source": "api_server/domain/repository/question_repository.go",
+				"destination": "api_server/domain/repository/mocks/question_repository_mock.go"
+			}
+		},
+		"api_server/domain/repository/mocks/transaction_repository_mock.go": {
+			"checksum": "8zbVNFyeuwXbKVaBMD0LiA==",
+			"source_checksum": "zBXR+CLt2cjMk2RMyPp7VQ==",
+			"mode": "SOURCE_MODE",
+			"source_mode_runner": {
+				"source": "api_server/domain/repository/transaction_repository.go",
+				"destination": "api_server/domain/repository/mocks/transaction_repository_mock.go"
+			}
+		},
+		"api_server/domain/repository/mocks/user_repository_mock.go": {
+			"checksum": "/khj1dfcPP23QreU/sw+Fw==",
+			"source_checksum": "RaeF8jg5Pv/015FxBI1e0A==",
+			"mode": "SOURCE_MODE",
+			"source_mode_runner": {
+				"source": "api_server/domain/repository/user_repository.go",
+				"destination": "api_server/domain/repository/mocks/user_repository_mock.go"
+			}
+		}
+	}
+}
