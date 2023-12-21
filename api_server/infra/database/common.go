@@ -172,6 +172,6 @@ func (m *dbm) getKey(ctx context.Context, ctxKey ContextKey) string {
 
 // generateNewKey generate key
 func (m *dbm) generateNewKey() string {
-	rand.Seed(time.Now().UnixNano())
-	return fmt.Sprintf("%d", rand.Int())
+	seededRand := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return fmt.Sprintf("%d", seededRand.Int())
 }
