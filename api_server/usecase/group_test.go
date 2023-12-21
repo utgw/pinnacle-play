@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"pinnacle-play/domain/model"
 	mock_repository "pinnacle-play/domain/repository/mocks"
 	"pinnacle-play/usecase/input"
 	"testing"
@@ -23,8 +24,8 @@ func TestGroupUsecase_ValidatePost(t *testing.T) {
 			name: "全てのバリデートをパスするとき",
 			input: input.PostGroupInput{
 				GroupName:        "group1",
-				UserNames:        []string{"user1", "user2"},
-				QuestionContents: []string{"question1", "question2"},
+				UserNames:        []model.UserName{"user1", "user2"},
+				QuestionContents: []model.QuestionContent{"question1", "question2"},
 			},
 			want: nil,
 		},
@@ -32,8 +33,8 @@ func TestGroupUsecase_ValidatePost(t *testing.T) {
 			name: "GroupNameが空のとき",
 			input: input.PostGroupInput{
 				GroupName:        "",
-				UserNames:        []string{"user1", "user2"},
-				QuestionContents: []string{"question1", "question2"},
+				UserNames:        []model.UserName{"user1", "user2"},
+				QuestionContents: []model.QuestionContent{"question1", "question2"},
 			},
 			want: errors.New("GroupName parameter is invalid"),
 		},
@@ -41,8 +42,8 @@ func TestGroupUsecase_ValidatePost(t *testing.T) {
 			name: "UserNamesの要素が0のとき",
 			input: input.PostGroupInput{
 				GroupName:        "group1",
-				UserNames:        []string{},
-				QuestionContents: []string{"question1", "question2"},
+				UserNames:        []model.UserName{},
+				QuestionContents: []model.QuestionContent{"question1", "question2"},
 			},
 			want: errors.New("UserNames parameter is invalid"),
 		},
@@ -50,8 +51,8 @@ func TestGroupUsecase_ValidatePost(t *testing.T) {
 			name: "usernameの要素が0ではないがその中の要素が空のとき",
 			input: input.PostGroupInput{
 				GroupName:        "group1",
-				UserNames:        []string{"", "user2"},
-				QuestionContents: []string{"question1", "question2"},
+				UserNames:        []model.UserName{"", "user2"},
+				QuestionContents: []model.QuestionContent{"question1", "question2"},
 			},
 			want: errors.New("UserNames parameter is invalid"),
 		},
@@ -59,8 +60,8 @@ func TestGroupUsecase_ValidatePost(t *testing.T) {
 			name: "questionContentsの要素が0ではないがその中の要素が空のとき",
 			input: input.PostGroupInput{
 				GroupName:        "group1",
-				UserNames:        []string{"user1", "user2"},
-				QuestionContents: []string{"", "question2"},
+				UserNames:        []model.UserName{"user1", "user2"},
+				QuestionContents: []model.QuestionContent{"", "question2"},
 			},
 			want: errors.New("QuestionContents parameter is invalid"),
 		},
