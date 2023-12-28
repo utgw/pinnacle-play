@@ -2,7 +2,7 @@
 
 import { Button, Container, Typography } from '@mui/material'
 import { useContext } from 'react'
-import { ResourceContext } from './_context/ViewModelContex'
+import { ResourceContext } from './(user)/_context/ViewModelContex'
 import Header from '../components/Header'
 import { useRouter } from 'next/navigation'
 
@@ -34,7 +34,7 @@ export default function Home() {
           fontWeight: 'bold',
           marginBottom: '40px',
         }}
-        onClick={() => router.push('/groupe')}
+        onClick={() => router.push('/group')}
       >
         はじめる
       </Button>

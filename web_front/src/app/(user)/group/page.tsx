@@ -3,7 +3,7 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { ResourceContext } from '../_context/ViewModelContex'
-import Header from '../../components/Header'
+import Header from '../../../components/Header'
 import Input from '@/components/Input'
 import NameTag from '@/components/NameTag'
 
