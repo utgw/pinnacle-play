@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"pinnacle-play/domain/model"
 	"pinnacle-play/infra/logger"
-	"pinnacle-play/usecase"
 	"pinnacle-play/usecase/input"
+	"pinnacle-play/usecase/interactor"
 )
 
 // NewAPI Get API instance
-func NewAPI(it usecase.Interactor, log logger.Logger) API {
+func NewAPI(it interactor.Interactor, log logger.Logger) API {
 	return controller{it, log}
 }
 
@@ -19,7 +19,7 @@ type API interface {
 }
 
 type controller struct {
-	it  usecase.Interactor
+	it  interactor.Interactor
 	log logger.Logger
 }
 
@@ -33,12 +33,12 @@ func (c controller) PostGroup(w http.ResponseWriter, r *http.Request) {
 	userNames := c.convertToUserNames(r.URL.Query()["userNames"])
 	questionContents := c.convertToQuestionContents(r.URL.Query()["questionContents"])
 
-	in := &input.PostGroupInput{
-		GroupName:        model.GroupName(r.URL.Query().Get("groupName")),
-		UserNames:        userNames,
-		QuestionContents: questionContents,
+	in := &input.CreateGroupInput{
+		GroupInput:    input.PostGroupInput{GroupName: model.GroupName(r.URL.Query().Get("groupName"))},
+		UserInput:     input.PostUserInput{UserNames: userNames},
+		QuestionInput: input.PostQuestonInput{QuestionContent: questionContents},
 	}
-	c.it.PostGroup(ctx, *in)
+	c.it.CreateGroup(ctx, *in)
 }
 
 func (c controller) convertToUserNames(names []string) []model.UserName {
